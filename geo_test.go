@@ -35,11 +35,11 @@ func TestPointsWithinRadiusIntegration(t *testing.T) {
 
 	// Make a point that is 1 meter within the desired radius
 	in_point := origin.PointAtDistanceAndBearing(7.999, bearing)
-	s.sqlConn.Exec(fmt.Sprintf("INSERT INTO points(lat, lng) VALUES(%f, %f);", in_point.lat, in_point.lng))
+	s.sqlConn.Exec(fmt.Sprintf("INSERT INTO points(lat, lng) VALUES(%f, %f);", in_point.Lat, in_point.Lng))
 
 	// Make a point that is 1 meter outsied of the desired radius
 	out_point := origin.PointAtDistanceAndBearing(8.001, bearing)
-	s.sqlConn.Exec(fmt.Sprintf("INSERT INTO points(lat, lng) VALUES(%f, %f);", out_point.lat, out_point.lng))
+	s.sqlConn.Exec(fmt.Sprintf("INSERT INTO points(lat, lng) VALUES(%f, %f);", out_point.Lat, out_point.Lng))
 
 	// Should only get the first point
 	_, err := s.PointsWithinRadius(origin, 8)

@@ -6,40 +6,42 @@ import (
 
 // Represents a Physical Point in geographic notation [lat, lng].
 type Point struct {
-	lat float64
-	lng float64
+	Lat float64
+	Lng float64
 }
 
 const (
 	// According to Wikipedia, the Earth's radius is about 6,371km
-	EARTH_RADIUS = 6371 
+	EARTH_RADIUS = 6371
 )
 
-// Returns a new Point populated by the passed in latitude (lat) and longitude (lng) values.
-func NewPoint(lat float64, lng float64) *Point {
-	return &Point{lat: lat, lng: lng}
+// Returns a new Point populated by the passed in latitude (Lat) and longitude (lng) values.
+func NewPoint(Lat float64, lng float64) *Point {
+	return &Point{Lat: Lat, Lng: lng}
 }
 
-// Returns Point p's latitude.
+/*
+// Returns Point p's Latitude.
 func (p *Point) Lat() float64 {
-	return p.lat
+	return p.Lat
 }
 
 // Returns Point p's longitude.
 func (p *Point) Lng() float64 {
-	return p.lng
+	return p.Lng
 }
+*/
 
-// Returns a Point populated with the lat and lng coordinates of transposing the origin point the distance (in meters) supplied by the compass bearing (in degrees) supplied.
-// Original Implementation from: http://www.movable-type.co.uk/scripts/latlong.html
+// Returns a Point popuLated with the lat and lng coordinates of transposing the origin point the distance (in meters) supplied by the compass bearing (in degrees) supplied.
+// Original Implementation from: http://www.movable-type.co.uk/scripts/Latlong.html
 func (p *Point) PointAtDistanceAndBearing(dist float64, bearing float64) *Point {
 
 	dr := dist / EARTH_RADIUS
 
 	bearing = (bearing * (math.Pi / 180.0))
 
-	lat1 := (p.lat * (math.Pi / 180.0))
-	lng1 := (p.lng * (math.Pi / 180.0))
+	lat1 := (p.Lat * (math.Pi / 180.0))
+	lng1 := (p.Lng * (math.Pi / 180.0))
 
 	lat2_part1 := math.Sin(lat1) * math.Cos(dr)
 	lat2_part2 := math.Cos(lat1) * math.Sin(dr) * math.Cos(bearing)
@@ -55,17 +57,17 @@ func (p *Point) PointAtDistanceAndBearing(dist float64, bearing float64) *Point 
 	lat2 = lat2 * (180.0 / math.Pi)
 	lng2 = lng2 * (180.0 / math.Pi)
 
-	return &Point{lat: lat2, lng: lng2}
+	return &Point{Lat: lat2, Lng: lng2}
 }
 
-// Calculates the Haversine distance between two points.
+// CalcuLates the Haversine distance between two points.
 // Original Implementation from: http://www.movable-type.co.uk/scripts/latlong.html
 func (p *Point) GreatCircleDistance(p2 *Point) float64 {
-	dLat := (p2.lat - p.lat) * (math.Pi / 180.0)
-	dLon := (p2.lng - p.lng) * (math.Pi / 180.0)
+	dLat := (p2.Lat - p.Lat) * (math.Pi / 180.0)
+	dLon := (p2.Lng - p.Lng) * (math.Pi / 180.0)
 
-	lat1 := p.lat * (math.Pi / 180.0)
-	lat2 := p2.lat * (math.Pi / 180.0)
+	lat1 := p.Lat * (math.Pi / 180.0)
+	lat2 := p2.Lat * (math.Pi / 180.0)
 
 	a1 := math.Sin(dLat/2) * math.Sin(dLat/2)
 	a2 := math.Sin(dLon/2) * math.Sin(dLon/2) * math.Cos(lat1) * math.Cos(lat2)
@@ -81,10 +83,10 @@ func (p *Point) GreatCircleDistance(p2 *Point) float64 {
 // Original Implementation from: http://www.movable-type.co.uk/scripts/latlong.html
 func (p *Point) BearingTo(p2 *Point) float64 {
 
-	dLon := (p2.lng - p.lng) * math.Pi / 180.0
+	dLon := (p2.Lng - p.Lng) * math.Pi / 180.0
 
-	lat1 := p.lat * math.Pi / 180.0
-	lat2 := p2.lat * math.Pi / 180.0
+	lat1 := p.Lat * math.Pi / 180.0
+	lat2 := p2.Lat * math.Pi / 180.0
 
 	y := math.Sin(dLon) * math.Cos(lat2)
 	x := math.Cos(lat1)*math.Sin(lat2) -

@@ -54,7 +54,7 @@ func (g *MapQuestGeocoder) Geocode(query string) (*Point, error) {
 		return nil, extractErr
 	}
 
-	p := &Point{lat: lat, lng: lng}
+	p := &Point{Lat: lat, Lng: lng}
 
 	return p, nil
 }
@@ -79,7 +79,7 @@ func (g *MapQuestGeocoder) extractLatLngFromResponse(data []byte) (float64, floa
 // Returns the first most available address that corresponds to the passed in point.
 // It may also return an error if one occurs during execution.
 func (g *MapQuestGeocoder) ReverseGeocode(p *Point) (string, error) {
-	data, err := g.Request(fmt.Sprintf("reverse.php?lat=%f&lon=%f&format=json", p.lat, p.lng))
+	data, err := g.Request(fmt.Sprintf("reverse.php?lat=%f&lon=%f&format=json", p.Lat, p.Lng))
 	if err != nil {
 		return "", err
 	}

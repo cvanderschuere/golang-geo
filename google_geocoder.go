@@ -51,7 +51,7 @@ func (g *GoogleGeocoder) Geocode(query string) (*Point, error) {
 		return nil, err
 	}
 
-	p := &Point{lat: lat, lng: lng}
+	p := &Point{Lat: lat, Lng: lng}
 
 	return p, nil
 }
@@ -74,7 +74,7 @@ func (g *GoogleGeocoder) extractLatLngFromResponse(data []byte) (float64, float6
 // Reverse geocodes the pointer to a Point struct and returns the first address that matches
 // or returns an error if the underlying request cannot complete.
 func (g *GoogleGeocoder) ReverseGeocode(p *Point) (string, error) {
-	data, err := g.Request(fmt.Sprintf("latlng=%f,%f", p.lat, p.lng))
+	data, err := g.Request(fmt.Sprintf("latlng=%f,%f", p.Lat, p.Lng))
 	if err != nil {
 		return "", err
 	}
